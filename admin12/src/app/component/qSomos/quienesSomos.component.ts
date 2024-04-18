@@ -34,10 +34,11 @@ export class SomosComponent implements OnInit {
   }
 
   agregarSomos() {
+
     if (this.somosForm) {
-          const fotoControl = this.somosForm.get('nombre');
-         const descripcionControl = this.somosForm.get('imagen');
-          
+          const fotoControl = this.somosForm.get('foto');
+         const descripcionControl = this.somosForm.get('descripcion');
+      console.log(fotoControl)
       if (fotoControl && descripcionControl) {
            const somos: somos = {
              foto: fotoControl.value,

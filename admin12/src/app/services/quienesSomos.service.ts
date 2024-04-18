@@ -25,12 +25,6 @@ export class SomosService {
 
   guardarSomos(somos: somos): Observable<somos> {
     return this.http.post<somos>(this.apiUrl, somos)
-      .pipe(
-        catchError((error: any) => {
-          console.error('Error al guardar el Quienes Somos:', error);
-          return throwError(error);
-        })
-      );
   }
   
 
