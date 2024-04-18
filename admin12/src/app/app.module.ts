@@ -9,38 +9,39 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from "@angular/common/http";
 
-// import { ProductComponent } from './component/product/product.component';
-// import { ProductsComponent } from './component/products/products.component';
-// import { NuevosProductsComponent } from "./component/productosNuevos/productosNuevos.component";
+import { ProductComponent } from './component/product/product.component';
+import { ProductsComponent } from './component/products/products.component';
+import { NuevosProductsComponent } from "./component/productosNuevos/productosNuevos.component";
 import { CategoriasComponent } from "./component/categorias/categorias.component";
 import { CategoriaComponent } from "./component/categoria/categoria.component";
 // import { ComentarioComponent } from "./component/comment/comment.component";
 // import { CommentsComponent } from "./component/comments/comments.component";
-// import { EventComponent } from "./component/event/event.component";
-// import { EventsComponent } from "./component/events/events.component";
-// import { SorteoComponent } from "./component/lotery/lotery.component";
-// import { SorteosComponent } from "./component/loteryes/loteryes.component";
-// import { SomoComponent } from "./component/qSomo/quienesSomo.component";
-// import { SomosComponent } from "./component/qSomos/quienesSomos.component";
-// import { ProductNuevoComponent } from "./component/productoNuevo/productoNuevo.component";
+import { EventComponent } from "./component/event/event.component";
+import { EventsComponent } from "./component/events/events.component";
+import { SorteoComponent } from "./component/lotery/lotery.component";
+import { SorteosComponent } from "./component/loteryes/loteryes.component";
+import { SomoComponent } from "./component/qSomo/quienesSomo.component";
+import { SomosComponent } from "./component/qSomos/quienesSomos.component";
+import { ProductNuevoComponent } from "./component/productoNuevo/productoNuevo.component";
 
 @NgModule({
   declarations: [AppComponent,
   HomePage,
-  // ProductComponent,
-  // ProductsComponent,
-  // NuevosProductsComponent,
-  // ProductNuevoComponent,
+  ProductComponent,
+  ProductsComponent,
+  NuevosProductsComponent,
+  ProductNuevoComponent,
   CategoriasComponent,
   CategoriaComponent,
+  EventComponent,
+  EventsComponent,
   // ComentarioComponent,
   // CommentsComponent,
-  // EventComponent,
-  // EventsComponent,
-  // SorteoComponent,
-  // SorteosComponent,
-  // SomoComponent,
-  // SomosComponent
+  
+  SorteoComponent,
+  SorteosComponent,
+  SomoComponent,
+  SomosComponent
   ],
   imports: [BrowserModule, 
     IonicModule.forRoot(),
