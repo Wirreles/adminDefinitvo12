@@ -9,7 +9,7 @@ import { event } from 'src/app/models/evento'
   styleUrls: ['./events.component.scss'],
 })
 export class EventsComponent implements OnInit {
-
+  fotoPerfil: File | null = null; 
   eventForm: FormGroup;
 
   goBack() {
@@ -23,7 +23,7 @@ export class EventsComponent implements OnInit {
               private _eventoService: EventoService,
               private aRouter: ActivatedRoute){
     this.eventForm = this.fb.group({
-      foto: ['', Validators.required],
+      imagen: ['', Validators.required],
       nombre: ['', Validators.required],
       fecha: ['', Validators.required],
       descripcion: ['', Validators.required],
@@ -34,26 +34,57 @@ export class EventsComponent implements OnInit {
     this.esEditar();
   }
 
-  agregarEvento(){
+  // agregarEvento(){
     
-    const EVENT: event= {
-      foto: this.eventForm.get('foto')?.value,
-      nombre: this.eventForm.get('nombre')?.value,
-      fecha: this.eventForm.get('fecha')?.value,
-      descripcion: this.eventForm.get('descripcion')?.value,
-    }
+  //   const EVENT: event= {
+  //     imagen: this.eventForm.get('imagen')?.value,
+  //     nombre: this.eventForm.get('nombre')?.value,
+  //     fecha: this.eventForm.get('fecha')?.value,
+  //     descripcion: this.eventForm.get('descripcion')?.value,
+  //   }
 
-    if(this.id!==null){
-      // editamos producto
-      this._eventoService.editarEvento(this.id, EVENT).subscribe(data=>{
-        this.router.navigate(['/']);    
-      })
-    } else {
-      // agregamos producto
-      console.log(EVENT);
-      this._eventoService.guardarEvento(EVENT).subscribe(data =>{
-      this.router.navigate(['/']);
-    })
+  //   if(this.id!==null){
+  //     // editamos producto
+  //     this._eventoService.editarEvento(this.id, EVENT).subscribe(data=>{
+  //       this.router.navigate(['/']);    
+  //     })
+  //   } else {
+  //     // agregamos producto
+  //     console.log(EVENT);
+  //     this._eventoService.guardarEvento(EVENT).subscribe(data =>{
+  //     this.router.navigate(['/']);
+  //   })
+  //   }
+  // }
+
+  onFileSelected(event: any): void {
+    this.fotoPerfil = event.target.files[0] as File;
+  }
+
+  agregarEvento(): void {
+    const nombre = this.eventForm.get('nombre')?.value;
+    const fecha = this.eventForm.get('fecha')?.value;
+    const descripcion = this.eventForm.get('descripcion')?.value;
+
+    if (nombre && this.fotoPerfil && fecha && descripcion) {
+      const formData = new FormData();
+      formData.append('nombre', nombre);
+      formData.append('imagen', this.fotoPerfil);
+      formData.append('fecha', fecha);
+      formData.append('descripcion', descripcion);
+
+        console.log('FormData:', formData);
+
+      this._eventoService.createEventoWithImage(formData).subscribe({
+        next: (response) => {
+          console.log('Evento creada correctamente:', response);
+          this.router.navigate(['/event']);
+        },
+        error: (err) => {
+          console.error('Error al crear el evento:', err);
+          // Manejar el error según sea necesario
+        }
+      });
     }
   }
   
@@ -62,7 +93,7 @@ export class EventsComponent implements OnInit {
       this.titulo = 'Editar Evento';
       this._eventoService.obtenerEvento(this.id).subscribe(data =>{
         this.eventForm.setValue({
-          foto: data.foto,
+          imagen: data.imagen,
           nombre: data.nombre,
           fecha: data.fecha,
           descripcion: data.descripcion,

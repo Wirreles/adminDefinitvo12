@@ -13,6 +13,7 @@ export class NuevosProductsComponent implements OnInit {
   nuevosProductosForm: FormGroup;
   titulo = 'Crear Nuevo Producto';
   id: string | null;
+  fotoPerfil: File | null = null; 
 
   constructor(private fb: FormBuilder,
               private router: Router,
@@ -37,36 +38,36 @@ export class NuevosProductsComponent implements OnInit {
     window.history.back();
   }
 
-  agregarProductoNuevo() {
-    if (this.nuevosProductosForm) {
-      const nombreControl = this.nuevosProductosForm.get('nombre');
-      const imagenControl = this.nuevosProductosForm.get('imagen');
-      const precioControl = this.nuevosProductosForm.get('precio');
-      const descuentoControl = this.nuevosProductosForm.get('descuento');
-      const precioFinalControl = this.nuevosProductosForm.get('precioFinal');
- 
-   if (nombreControl && imagenControl && precioControl  && descuentoControl && precioFinalControl) {
-        const nuevoProducto: NuevoProducto = {
-          nombre: nombreControl.value,
-          imagen: imagenControl.value,
-          precio: precioControl.value,
-          descuento: descuentoControl.value,
-          precioFinal: precioFinalControl.value,
-    };
-    
+  onFileSelected(event: any): void {
+    this.fotoPerfil = event.target.files[0] as File;
+  }
+  
+  agregarProductoNuevo(): void {
+    const nombre = this.nuevosProductosForm.get('nombre')?.value;
+    const precio = this.nuevosProductosForm.get('precio')?.value;
+    const descuento = this.nuevosProductosForm.get('descuento')?.value;
+    const precioFinal = this.nuevosProductosForm.get('precioFinal')?.value;
 
-    if (this.id !== null) {
-      this.nuevoProductoService.updateProductoNuevo(this.id, nuevoProducto).subscribe(data => {
-        this.router.navigate(['/']);
-      });
-    } else {
-      this.nuevoProductoService.crearProductoNuevo(nuevoProducto).subscribe(data => {
-        this.router.navigate(['/']);
+    if (nombre && this.fotoPerfil && precio && descuento && precioFinal) {
+      const formData = new FormData();
+      formData.append('nombre', nombre);
+      formData.append('imagen', this.fotoPerfil);
+      formData.append('precio', precio);
+      formData.append('descuento', descuento);
+      formData.append('precioFinal', precioFinal);
+  
+      this.nuevoProductoService.createNewProductoWithImage(formData).subscribe({
+        next: (response) => {
+          console.log('Evento creada correctamente:', response);
+          this.router.navigate(['/event']);
+        },
+        error: (err) => {
+          console.error('Error al crear el evento:', err);
+          // Manejar el error según sea necesario
+        }
       });
     }
-  }}
   }
-
   esEditar() {
     if (this.id !== null) {
       this.titulo = 'Editar Producto';

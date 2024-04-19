@@ -1,5 +1,5 @@
 export interface somos {
-    foto: String,
+    imagen: String,
     descripcion:String,
 }
   

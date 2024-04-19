@@ -32,7 +32,7 @@
         <thead>
           <tr> 
             <th scope="col">ID</th>
-            <th scope="col">Foto</th>
+            <th scope="col">Imagen</th>
             <th scope="col">Descripción</th>
             <th scope="col"><button  class="btn btn-primary"  (click)="navigateToPage8()">Agregar</button></th>
           </tr>
@@ -40,7 +40,8 @@
         <tbody>
           <tr *ngFor="let som of listSomos; let i = index">
             <th scope="row">{{ i + 1 }}</th>
-            <td>{{ som.foto }}</td>
+            <td>{{ som.imagen }}</td>
+            <!-- <ion-img [src]="'apiUrl/uploads' + som.imagen" alt="{{ som.imagen }}"></ion-img> -->
             <td>{{ som.descripcion }}</td>
             <td>
               <button class="btn btn-warning"  [routerLink]="['/editar-somos', som._id]">Editar</button>

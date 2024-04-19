@@ -1,6 +1,6 @@
 export interface event {
 
-    foto: String,
+    imagen: String,
     nombre: String,
     fecha: Date,
     descripcion:String

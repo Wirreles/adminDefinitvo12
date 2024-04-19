@@ -23,9 +23,29 @@ export class SomosService {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
 
-  guardarSomos(somos: somos): Observable<somos> {
-    return this.http.post<somos>(this.apiUrl, somos)
+  // guardarSomos(somos: somos): Observable<somos> {
+  //   return this.http.post<somos>(this.apiUrl, somos)
+  // }
+
+  createSomosWithImage(formData: FormData): Observable<somos> {
+    const imagen = formData.get('imagen') as File; 
+    const descripcion = formData.get('descripcion') as string; 
+  
+    // Verificar que se haya obtenido el nombre y la imagen
+    if (!descripcion || !imagen) {
+      throw new Error('El nombre y la imagen son requeridos para crear una categoría.');
+    }
+  
+    
+    const formDataClone = new FormData();
+    formData.forEach((value, key) => {
+      formDataClone.append(key, value);
+    });
+  
+    // Realizar la solicitud POST al backend con el FormData clonado
+    return this.http.post<somos>(this.apiUrl, formDataClone);
   }
+  
   
 
   obtenerSomos(id: string): Observable<any> {

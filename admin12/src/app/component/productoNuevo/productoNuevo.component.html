@@ -33,6 +33,7 @@
         <tr>
           <th scope="col">Id</th>
           <th scope="col">Nombre</th>
+          <th scope="col">Imagen</th>
           <th scope="col">Precio</th>
           <th scope="col">Descuento</th>
           <th scope="col">PrecioFinal</th>
@@ -43,6 +44,7 @@
         <tr *ngFor="let prodN of listProductosNew; let i = index">
           <th scope="row">{{ i + 1 }}</th>
           <td>{{ prodN.nombre }}</td>
+          <ion-img [src]="'apiUrl/uploads' + prodN.imagen" alt="{{ prodN.imagen }}"></ion-img>
           <td>{{ prodN.precio }}</td>
           <td>{{ prodN.descuento }}</td>
           <td>{{ prodN.precioFinal }}</td>

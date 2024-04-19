@@ -1,5 +1,5 @@
 export interface sorteo {
-    foto: String,
+    imagen: String,
     titulo:String,
     nombre:String,
     fecha: Date,

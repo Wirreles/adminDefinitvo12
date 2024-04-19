@@ -39,14 +39,15 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let cat of listCategorias; let i = index">
+        <tr *ngFor="let categoria of categorias; let i = index">
           <th scope="row">{{ i + 1 }}</th>
-          <td>{{ cat.nombre }}</td>
-          <td>{{ cat.imagen }}</td>
+          <td>{{ categoria.nombre }}</td>
+          <td>{{ categoria.imagen }}</td>
+          <!-- <ion-img [src]="'environment.apiUrl +  /uploads/' + categoria.imagen"  >></ion-img> -->
           
           <td>
-            <button class="btn btn-warning"   [routerLink]="['/editar-categoria', cat._id]">Editar</button>
-            <button class="btn btn-danger" (click)="eliminarCategoria(cat._id)">Eliminar</button>
+            <button class="btn btn-warning"   [routerLink]="['/editar-categoria', categoria._id]">Editar</button>
+            <button class="btn btn-danger" (click)="eliminarCategoria(categoria._id)">Eliminar</button>
           </td>
         </tr>
       </tbody>

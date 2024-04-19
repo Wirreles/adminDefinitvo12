@@ -20,26 +20,28 @@ export class CategoriaService {
     return this.http.get<Categoria>(`${this.apiUrl}/${id}`);
   }
 
-  createCategoria(categoria: Categoria): Observable<Categoria> {
-    return this.http.post<Categoria>(this.apiUrl, categoria);
-  }
-
-  // createCategoria(categoria: FormData): Observable<Categoria> {
+  // createCategoria(categoria: Categoria): Observable<Categoria> {
   //   return this.http.post<Categoria>(this.apiUrl, categoria);
   // }
 
-  // createCategoria(formData: any): Observable<any> {
-  //   const formDataWithImage = new FormData();
-  //   Object.keys(formData).forEach((key) => {
-  //     formDataWithImage.append(key, formData[key]);
-  //   });
-  //   console.log('FormData con imagen:', formDataWithImage)
+  createCategoriaWithImage(formData: FormData): Observable<Categoria> {
+    const nombre = formData.get('nombre') as string; 
+    const imagen = formData.get('imagen') as File; 
+  
+    // Verificar que se haya obtenido el nombre y la imagen
+    if (!nombre || !imagen) {
+      throw new Error('El nombre y la imagen son requeridos para crear una categoría.');
+    }
+  
     
-  //   return this.http.post(
-  //     `${this.apiUrl}/`,
-  //     formDataWithImage
-  //   );
-  // }
+    const formDataClone = new FormData();
+    formData.forEach((value, key) => {
+      formDataClone.append(key, value);
+    });
+  
+    // Realizar la solicitud POST al backend con el FormData clonado
+    return this.http.post<Categoria>(this.apiUrl, formDataClone);
+  }
   
   
 

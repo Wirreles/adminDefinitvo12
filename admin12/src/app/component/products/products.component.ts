@@ -13,6 +13,7 @@ export class ProductsComponent implements OnInit {
   productoForm: FormGroup;
   titulo = 'Crear Producto';
   id: string | null;
+  fotoPerfil: File | null = null; 
 
   constructor(private fb: FormBuilder,
               private router: Router,
@@ -37,33 +38,35 @@ export class ProductsComponent implements OnInit {
     window.history.back();
   }
 
-  agregarProducto() {
-  if (this.productoForm) {
-     const nombreControl = this.productoForm.get('nombre');
-     const imagenControl = this.productoForm.get('imagen');
-     const precioControl = this.productoForm.get('precio');
-     const descuentoControl = this.productoForm.get('descuento');
-     const precioFinalControl = this.productoForm.get('precioFinal');
+  onFileSelected(event: any): void {
+    this.fotoPerfil = event.target.files[0] as File;
+  }
+  
+  agregarProducto(): void {
+    const nombre = this.productoForm.get('nombre')?.value;
+    const precio = this.productoForm.get('precio')?.value;
+    const descuento = this.productoForm.get('descuento')?.value;
+    const precioFinal = this.productoForm.get('precioFinal')?.value;
 
-  if (nombreControl && imagenControl && precioControl  && descuentoControl && precioFinalControl) {
-       const producto: Producto = {
-         nombre: nombreControl.value,
-         imagen: imagenControl.value,
-         precio: precioControl.value,
-         descuento: descuentoControl.value,
-         precioFinal: precioFinalControl.value,
-   };
-   
-   if (this.id !== null) {
-     this.productService.updateProducto(this.id, producto).subscribe(data => {
-       this.router.navigate(['/']);
-      });
-    } else {
-      this.productService.createProducto(producto).subscribe(data => {
-        this.router.navigate(['/']);
+    if (nombre && this.fotoPerfil && precio && descuento && precioFinal) {
+      const formData = new FormData();
+      formData.append('nombre', nombre);
+      formData.append('imagen', this.fotoPerfil);
+      formData.append('precio', precio);
+      formData.append('descuento', descuento);
+      formData.append('precioFinal', precioFinal);
+  
+      this.productService.createProductoWithImage(formData).subscribe({
+        next: (response) => {
+          console.log('Evento creada correctamente:', response);
+          this.router.navigate(['/event']);
+        },
+        error: (err) => {
+          console.error('Error al crear el evento:', err);
+          // Manejar el error según sea necesario
+        }
       });
     }
-  }}
   }
 
   esEditar() {

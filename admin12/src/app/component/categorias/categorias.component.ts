@@ -15,6 +15,7 @@ export class CategoriasComponent implements OnInit {
   categoriaForm: FormGroup ;
   titulo = 'Crear Categoria';
   id: string | null;
+  fotoPerfil: File | null = null; 
 
   constructor(private fb: FormBuilder,
               private router: Router,
@@ -35,58 +36,33 @@ export class CategoriasComponent implements OnInit {
     window.history.back();
   }
 
-  agregarCategoria() {
-    if (this.categoriaForm) {
-      const nombreControl = this.categoriaForm.get('nombre');
-      const imagenControl = this.categoriaForm.get('imagen');
-      
-      if (nombreControl && imagenControl) {
-        const categoria: Categoria = {
-          nombre: nombreControl.value,
-          imagen: imagenControl.value,
-        };
-  
-        if (this.id !== null) {
-          this.categoriaService.updateCategoria(this.id, categoria).subscribe(data => {
-            this.router.navigate(['/categoria']);
-          });
-        } else {
-          this.categoriaService.createCategoria(categoria).subscribe(data => {
-            this.router.navigate(['/categoria']);
-          });
+  onFileSelected(event: any): void {
+    this.fotoPerfil = event.target.files[0] as File;
+  }
+
+  agregarCategoria(): void {
+    const nombre = this.categoriaForm.get('nombre')?.value;
+
+    if (nombre && this.fotoPerfil) {
+      const formData = new FormData();
+      formData.append('nombre', nombre);
+      formData.append('imagen', this.fotoPerfil);
+
+        console.log('FormData:', formData);
+
+      this.categoriaService.createCategoriaWithImage(formData).subscribe({
+        next: (response) => {
+          console.log('Categoría creada correctamente:', response);
+          this.router.navigate(['/categoria']);
+        },
+        error: (err) => {
+          console.error('Error al crear la categoría:', err);
+          // Manejar el error según sea necesario
         }
-      }
+      });
     }
   }
-//   imagen: File | null = null;
 
-//  onFileSelected(event: any): void {
-//   this.imagen = event.target.files[0] as File;
-//   console.log('Imagen seleccionada:', this.imagen);
-// }
-// agregarCategoria() {
-//   if (this.categoriaForm && this.categoriaForm.valid) {
-//     const formData = new FormData();
-//     formData.append('nombre', this.categoriaForm.get('nombre')?.value || ''); // Pasar el valor del campo 'nombre'
-    
-//     // Agregar la imagen al FormData si existe
-//     if (this.imagen !== null) {
-//       formData.append('imagen', this.imagen, this.imagen.name);
-//     }
-  
-//     console.log('Datos enviados al servicio:', formData);
-  
-//     this.categoriaService.createCategoria(formData).subscribe(
-//       data => {
-//         console.log('Respuesta del servidor:', data);
-//         this.router.navigate(['/categoria']);
-//       },
-//       error => {
-//         console.error('Error al crear categoría:', error);
-//       }
-//     );
-//   }
-// }
 
   
   

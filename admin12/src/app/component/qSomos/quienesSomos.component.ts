@@ -13,13 +13,13 @@ export class SomosComponent implements OnInit {
   somosForm: FormGroup;
   titulo = 'Crear Quienes Somos';
   id: string | null;
-
+  fotoPerfil: File | null = null; 
   constructor(private fb: FormBuilder,
               private router: Router,
               private quienesSomosService: SomosService,
               private activatedRoute: ActivatedRoute) {
     this.somosForm = this.fb.group({
-      foto: ['', Validators.required],
+      imagen: ['', Validators.required],
       descripcion: ['', Validators.required]
     });
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
@@ -32,37 +32,38 @@ export class SomosComponent implements OnInit {
   goBack() {
     window.history.back();
   }
+  onFileSelected(event: any): void {
+    this.fotoPerfil = event.target.files[0] as File;
+  }
+  agregarSomos(): void {
+    const nombre = this.somosForm.get('nombre')?.value;
 
-  agregarSomos() {
+    if (nombre && this.fotoPerfil) {
+      const formData = new FormData();
+      formData.append('nombre', nombre);
+      formData.append('imagen', this.fotoPerfil);
 
-    if (this.somosForm) {
-          const fotoControl = this.somosForm.get('foto');
-         const descripcionControl = this.somosForm.get('descripcion');
-      console.log(fotoControl)
-      if (fotoControl && descripcionControl) {
-           const somos: somos = {
-             foto: fotoControl.value,
-             descripcion: descripcionControl.value,
-       };
+        console.log('FormData:', formData);
 
-    if (this.id !== null) {
-      this.quienesSomosService.editarSomos(this.id, somos).subscribe(data => {
-        this.router.navigate(['/']);
-      });
-    } else {
-      this.quienesSomosService.guardarSomos(somos).subscribe(data => {
-        this.router.navigate(['/']);
+      this.quienesSomosService.createSomosWithImage(formData).subscribe({
+        next: (response) => {
+          console.log('Categoría creada correctamente:', response);
+          this.router.navigate(['/categoria']);
+        },
+        error: (err) => {
+          console.error('Error al crear la categoría:', err);
+          // Manejar el error según sea necesario
+        }
       });
     }
   }
-}}
 
   esEditar() {
     if (this.id !== null) {
       this.titulo = 'Editar Quienes Somos';
       this.quienesSomosService.obtenerSomos(this.id).subscribe(data => {
         this.somosForm.setValue({
-          foto: data.foto,
+          imagen: data.imagen,
           descripcion: data.descripcion,
         });
       });

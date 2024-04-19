@@ -4,6 +4,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { CategoriaService } from 'src/app/services/categoria.service';
 import { Categoria } from 'src/app/models/categoria';
 import { AlertController } from '@ionic/angular'; 
+import { environment } from 'src/environments/environment';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-categoria',
@@ -11,22 +13,34 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./categoria.component.scss'],
 })
 export class CategoriaComponent implements OnInit {
-
-  listCategorias: any; // Declara la variable como un array de Productos
-
+  categorias: any[]=[];
+  // apiUrl: string=environment.apiUrl;
+  // listCategorias: any[]= []; // Declara la variable como un array de Productos
   constructor(private router: Router, private categoriaService: CategoriaService,
-  private alertCtrl: AlertController ) {}
+  private alertCtrl: AlertController, private http: HttpClient ) {}
 
   ngOnInit(): void {
     this.obtenerCategoria();
   }
 
+  // obtenerCategoria() {
+  //   this.categoriaService.getAllCategorias().subscribe(data => {
+  //     console.log(data);
+  //     this.listCategorias = data;
+  //   });
+  // }
   obtenerCategoria() {
-    this.categoriaService.getAllCategorias().subscribe(data => {
-      console.log(data);
-      this.listCategorias = data;
+    this.http.get<any[]>(`${environment.apiUrl}/categoria`).subscribe({
+      next: (response) => {
+        this.categorias = response;
+        console.log('=>', response);
+      },
+      error: (error) => {
+        console.error('Error al obtener productos:', error);
+      }
     });
-  }
+}
+
 
   eliminarCategoria(id: string) {
     this.categoriaService.deleteCategoria(id).subscribe(() => {

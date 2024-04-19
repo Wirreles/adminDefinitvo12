@@ -20,15 +20,37 @@ export class SorteoService {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
 
-  guardarSorteo(sorteo: sorteo): Observable<any> {
-    return this.http.post(this.apiUrl,sorteo)
-      .pipe(
-        catchError((error: any) => {
-          console.error('Error al guardar el sorteo:', error);
-          return throwError(error);
-        })
-      );
+  // guardarSorteo(sorteo: sorteo): Observable<any> {
+  //   return this.http.post(this.apiUrl,sorteo)
+  //     .pipe(
+  //       catchError((error: any) => {
+  //         console.error('Error al guardar el sorteo:', error);
+  //         return throwError(error);
+  //       })
+  //     );
+  // }
+
+  createSorteoWithImage(formData: FormData): Observable<sorteo> {
+    const nombre = formData.get('nombre') as string; 
+    const imagen = formData.get('imagen') as File; 
+    const fechaString = formData.get('fecha') as string;  // Obtener la fecha como string
+    const fecha = new Date(fechaString); // Convertir el string a Date
+    const descripcion = formData.get('descripcion') as string; 
+    // Verificar que se haya obtenido el nombre y la imagen
+    if (!nombre || !imagen || !fecha || !descripcion) {
+      throw new Error('El nombre y la imagen son requeridos para crear una categoría.');
+    }
+  
+    
+    const formDataClone = new FormData();
+    formData.forEach((value, key) => {
+      formDataClone.append(key, value);
+    });
+  
+    // Realizar la solicitud POST al backend con el FormData clonado
+    return this.http.post<sorteo>(this.apiUrl, formDataClone);
   }
+  
   
 
   obtenerSorteo(id: string): Observable<any> {

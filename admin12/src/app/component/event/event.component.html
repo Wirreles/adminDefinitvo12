@@ -32,7 +32,7 @@
         <tr>
           <th scope="col">ID</th>
           <th scope="col">Nombre</th>
-          <th scope="col">Foto</th>
+          <th scope="col">Imagen</th>
           <th scope="col">Fecha</th>
           <th scope="col">Descripcion</th>
           <th scope="col"><button  class="btn btn-primary"  (click)="navigateToPage8()">Agregar</button></th>
@@ -42,7 +42,7 @@
         <tr *ngFor="let even of listEvent; let i = index">
           <th scope="row">{{ i + 1 }}</th>
           <td>{{ even.nombre }}</td>
-          <td>{{ even.foto }}</td>
+          <td>{{ even.imagen }}</td>
           <td>{{ even.fecha }}</td>
           <td>{{ even.descripcion }}</td>
           <td>
