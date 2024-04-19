@@ -31,13 +31,14 @@ export class SorteoService {
   // }
 
   createSorteoWithImage(formData: FormData): Observable<sorteo> {
+    const titulo = formData.get('titulo') as string; 
     const nombre = formData.get('nombre') as string; 
     const imagen = formData.get('imagen') as File; 
     const fechaString = formData.get('fecha') as string;  // Obtener la fecha como string
     const fecha = new Date(fechaString); // Convertir el string a Date
     const descripcion = formData.get('descripcion') as string; 
     // Verificar que se haya obtenido el nombre y la imagen
-    if (!nombre || !imagen || !fecha || !descripcion) {
+    if (!nombre || !titulo || !imagen || !fecha || !descripcion) {
       throw new Error('El nombre y la imagen son requeridos para crear una categoría.');
     }
   

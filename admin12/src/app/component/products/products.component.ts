@@ -59,7 +59,7 @@ export class ProductsComponent implements OnInit {
       this.productService.createProductoWithImage(formData).subscribe({
         next: (response) => {
           console.log('Evento creada correctamente:', response);
-          this.router.navigate(['/event']);
+          this.router.navigate(['/product']);
         },
         error: (err) => {
           console.error('Error al crear el evento:', err);

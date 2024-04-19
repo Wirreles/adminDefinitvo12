@@ -16,7 +16,7 @@ export class CategoriasComponent implements OnInit {
   titulo = 'Crear Categoria';
   id: string | null;
   fotoPerfil: File | null = null; 
-
+  categoria: any;
   constructor(private fb: FormBuilder,
               private router: Router,
               private categoriaService: CategoriaService,
@@ -63,21 +63,25 @@ export class CategoriasComponent implements OnInit {
     }
   }
 
-
-  
-  
-  
+ 
   
   esEditar() {
     if (this.id !== null) {
       this.titulo = 'Editar Categoria';
       this.categoriaService.getCategoriaById(this.id).subscribe(data => {
-        this.categoriaForm.setValue({
-          nombre: data.nombre,
-          imagen: data.imagen,
-        });
+        if (data) {
+          this.categoria = data;
+          this.categoriaForm.controls['nombre'].setValue(data.nombre);
+          // Agrega la imagen solo si no estás en modo de edición
+          if (!this.esModoEdicion()) {
+            this.categoriaForm.controls['imagen'].setValue(data.imagen);
+          }
+        }
       });
     }
+  }
+  esModoEdicion(): boolean {
+    return this.id !== null;
   }
 
 }

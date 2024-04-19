@@ -1,29 +1,42 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { EventoService } from 'src/app/services/evento.service'; // Importa el servicio
-
+import { environment } from 'src/environments/environment';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Component({
   selector: 'app-event',
   templateUrl: './event.component.html',
   styleUrls: ['./event.component.scss'],
 })
 export class EventComponent implements OnInit {
+  listEvent: any[]=[];
 
-  listEvent: any;
-
-  constructor(private router: Router, private _eventoService: EventoService) {}
+  constructor(private router: Router, private _eventoService: EventoService,
+    private http: HttpClient
+  ) {}
 
   ngOnInit(): void{
     this.obtenerEvento();
   }
 
-  obtenerEvento() {
-    this._eventoService.getEvento().subscribe(data => {
-      console.log(data);
-      this.listEvent = data;
-    })
-  }
+  // obtenerEvento() {
+  //   this._eventoService.getEvento().subscribe(data => {
+  //     console.log(data);
+  //     this.listEvent = data;
+  //   })
+  // }
 
+  obtenerEvento() {
+    this.http.get<any[]>(`${environment.apiUrl}/evento`).subscribe({
+      next: (response) => {
+        this.listEvent = response;
+        console.log('=>', response);
+      },
+      error: (error) => {
+        console.error('Error al obtener los eventos:', error);
+      }
+    });
+}
   eliminarEvento(id: any) {
     this._eventoService.eliminarEvento(id).subscribe(data => {
     this.obtenerEvento();

@@ -44,7 +44,10 @@ export class CategoriaService {
   }
   
   
-
+  updateCategoriaWithImage(id: string, formData: FormData): Observable<Categoria> {
+    const url = `${this.apiUrl}/${id}`;
+    return this.http.put<Categoria>(url, formData);
+  }
   updateCategoria(id: string, categoria: Categoria): Observable<Categoria> {
     return this.http.put<Categoria>(`${this.apiUrl}/${id}`, categoria);
   }

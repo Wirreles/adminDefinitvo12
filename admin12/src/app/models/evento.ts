@@ -1,8 +1,8 @@
 export interface event {
 
-    imagen: String,
-    nombre: String,
+    imagen: string,
+    nombre: string,
     fecha: Date,
-    descripcion:String
+    descripcion:string
   }
   

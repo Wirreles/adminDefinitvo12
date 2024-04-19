@@ -49,17 +49,17 @@ export class SorteosComponent implements OnInit {
       const formData = new FormData();
       formData.append('nombre', nombre);
       formData.append('imagen', this.fotoPerfil);
-      formData.append('precio', titulo);
-      formData.append('descuento', fecha);
-      formData.append('precioFinal', descripcion);
+      formData.append('titulo', titulo);
+      formData.append('fecha', fecha);
+      formData.append('descripcion', descripcion);
 
       this._sorteoService.createSorteoWithImage(formData).subscribe({
         next: (response) => {
-          console.log('Evento creada correctamente:', response);
-          this.router.navigate(['/event']);
+          console.log('Sorteo creada correctamente:', response);
+          this.router.navigate(['/lotery']);
         },
         error: (err) => {
-          console.error('Error al crear el evento:', err);
+          console.error('Error al crear el sorteo:', err);
           // Manejar el error según sea necesario
         },
       });

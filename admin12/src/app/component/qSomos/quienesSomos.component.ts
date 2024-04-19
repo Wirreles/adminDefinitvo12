@@ -36,22 +36,22 @@ export class SomosComponent implements OnInit {
     this.fotoPerfil = event.target.files[0] as File;
   }
   agregarSomos(): void {
-    const nombre = this.somosForm.get('nombre')?.value;
+    const descripcion = this.somosForm.get('descripcion')?.value;
 
-    if (nombre && this.fotoPerfil) {
+    if (descripcion && this.fotoPerfil) {
       const formData = new FormData();
-      formData.append('nombre', nombre);
+      formData.append('descripcion', descripcion);
       formData.append('imagen', this.fotoPerfil);
 
         console.log('FormData:', formData);
 
       this.quienesSomosService.createSomosWithImage(formData).subscribe({
         next: (response) => {
-          console.log('Categoría creada correctamente:', response);
-          this.router.navigate(['/categoria']);
+          console.log('Quienes Somos creada correctamente:', response);
+          this.router.navigate(['/qSomo']);
         },
         error: (err) => {
-          console.error('Error al crear la categoría:', err);
+          console.error('Error al crear Quienes Somos:', err);
           // Manejar el error según sea necesario
         }
       });

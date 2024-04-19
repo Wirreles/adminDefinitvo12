@@ -65,7 +65,6 @@ export class EventsComponent implements OnInit {
     const nombre = this.eventForm.get('nombre')?.value;
     const fecha = this.eventForm.get('fecha')?.value;
     const descripcion = this.eventForm.get('descripcion')?.value;
-
     if (nombre && this.fotoPerfil && fecha && descripcion) {
       const formData = new FormData();
       formData.append('nombre', nombre);
@@ -73,7 +72,7 @@ export class EventsComponent implements OnInit {
       formData.append('fecha', fecha);
       formData.append('descripcion', descripcion);
 
-        console.log('FormData:', formData);
+      console.log('FormData:', formData);
 
       this._eventoService.createEventoWithImage(formData).subscribe({
         next: (response) => {
