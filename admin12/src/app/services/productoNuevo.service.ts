@@ -2,8 +2,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { NuevoProducto } from '../models/pNuevo';
 import { environment } from 'src/environments/environment';
+import { NuevoProducto } from '../models/pNuevo';
 
 @Injectable({
   providedIn: 'root'
@@ -47,7 +47,7 @@ export class NuevoProductoService {
   //   return this.http.post<NuevoProducto>(this.apiUrl, formDataClone);
   // }
 
- createProductoWithImage(formData: FormData): Observable<NuevoProducto> {
+ createNewProductoWithImage(formData: FormData): Observable<NuevoProducto> {
     const nombre = formData.get('nombre') as string; 
     const imagen = formData.get('imagen') as File; 
     const precioString = formData.get('precio');
