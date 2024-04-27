@@ -49,6 +49,8 @@ export class ProductService {
     formData.forEach((value, key) => {
       formDataClone.append(key, value);
     });
+
+    
   
     // Realizar la solicitud POST al backend con el FormData clonado
     return this.http.post<Producto>(this.apiUrl, formDataClone);
