@@ -152,7 +152,7 @@ agregarProductoNuevo(): void {
       this.nuevoProductoService.createNewProductoWithImage(formData).subscribe({
         next: (response) => {
           console.log('Producto creada correctamente:', response);
-          this.router.navigate(['/product']);
+          this.router.navigate(['/productoNuevo']);
         },
         error: (err) => {
           console.error('Error al crear el nuevo producto:', err);
