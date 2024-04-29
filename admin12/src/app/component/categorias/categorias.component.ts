@@ -17,6 +17,10 @@ export class CategoriasComponent implements OnInit {
   id: string | null;
   fotoPerfil: File | null = null; 
   categoria: any;
+
+  imagenURL: string | null = null;
+
+
   constructor(private fb: FormBuilder,
               private router: Router,
               private categoriaService: CategoriaService,
@@ -65,21 +69,35 @@ export class CategoriasComponent implements OnInit {
 
  
   
+  // esEditar() {
+  //   if (this.id !== null) {
+  //     this.titulo = 'Editar Categoria';
+  //     this.categoriaService.getCategoriaById(this.id).subscribe(data => {
+  //       if (data) {
+  //         this.categoria = data;
+  //         this.categoriaForm.controls['nombre'].setValue(data.nombre);
+  //         // Agrega la imagen solo si no estás en modo de edición
+  //         if (!this.esModoEdicion()) {
+  //           this.categoriaForm.controls['imagen'].setValue(data.imagen);
+  //         }
+  //       }
+  //     });
+  //   }
+  // }
   esEditar() {
     if (this.id !== null) {
       this.titulo = 'Editar Categoria';
-      this.categoriaService.getCategoriaById(this.id).subscribe(data => {
+      this.categoriaService.getCategoriaById(this.id).subscribe((data) => {
         if (data) {
           this.categoria = data;
           this.categoriaForm.controls['nombre'].setValue(data.nombre);
-          // Agrega la imagen solo si no estás en modo de edición
-          if (!this.esModoEdicion()) {
-            this.categoriaForm.controls['imagen'].setValue(data.imagen);
-          }
+          // Cargar la imagen en el formulario
+          this.imagenURL = `/uploads/${data.imagen}`
         }
       });
     }
   }
+
   esModoEdicion(): boolean {
     return this.id !== null;
   }

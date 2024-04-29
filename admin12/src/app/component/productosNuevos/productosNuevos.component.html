@@ -17,6 +17,11 @@
         <ion-label position="floating">Nombre</ion-label>
         <ion-input type="text" formControlName="nombre" required></ion-input>
       </ion-item>
+
+        <ion-item>
+        <ion-label position="floating">Descripcion</ion-label>
+        <ion-input type="text" formControlName="descripcion"></ion-input>
+      </ion-item>
       
       <ion-item>
         <ion-label position="floating">Imagen</ion-label>
@@ -39,6 +44,13 @@
       </ion-item>
   
       
+        <ion-item>
+    <ion-label position="floating">Categorías</ion-label>
+    <ion-select formControlName="categorias" multiple="true">
+      <ion-select-option *ngFor="let categoria of categorias" [value]="categoria._id">{{ categoria.nombre }}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
   
       <ion-button expand="full" type="submit" color="primary">Enviar</ion-button>
     </form>

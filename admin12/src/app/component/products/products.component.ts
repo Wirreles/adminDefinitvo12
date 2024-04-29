@@ -29,6 +29,7 @@ export class ProductsComponent implements OnInit {
       nombre: ['', Validators.required],
       imagen: ['', Validators.required],
       precio: ['', Validators.required],
+      descripcion: [''],
       descuento: [''],
       precioFinal: [''],
       categorias: [[]] 
@@ -79,9 +80,11 @@ export class ProductsComponent implements OnInit {
   
   agregarProducto(): void {
     const nombre = this.productoForm.get('nombre')?.value;
+    const descripcion = this.productoForm.get('descripcion')?.value;
     const precio = this.productoForm.get('precio')?.value;
     const descuento = this.productoForm.get('descuento')?.value;
     const precioFinal = this.productoForm.get('precioFinal')?.value;
+    
     
 
 
@@ -103,6 +106,7 @@ export class ProductsComponent implements OnInit {
       if (nombre && this.fotoPerfil && !isNaN(precioFinal)) {
         const formData = new FormData();
         formData.append('nombre', nombre);
+        formData.append('descripcion', descripcion);
         formData.append('imagen', this.fotoPerfil);
         formData.append('precio', precio.toString());
         formData.append('descuento', descuento.toString());
