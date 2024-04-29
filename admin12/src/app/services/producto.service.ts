@@ -27,6 +27,7 @@ export class ProductService {
 
   createProductoWithImage(formData: FormData): Observable<Producto> {
     const nombre = formData.get('nombre') as string; 
+    const descripcion = formData.get('descripcion') as string; 
     const imagen = formData.get('imagen') as File; 
     const precioString = formData.get('precio');
     const descuentoString = formData.get('descuento');

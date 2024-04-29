@@ -27,6 +27,7 @@ export class NuevosProductsComponent implements OnInit {
               private activatedRoute: ActivatedRoute, private categoriaService: CategoriaService) {
     this.nuevosProductosForm = this.fb.group({
       nombre: ['', Validators.required],
+      descripcion: [''],
       imagen: ['', Validators.required],
       precio: ['', Validators.required],
       descuento: [''],
@@ -102,6 +103,7 @@ export class NuevosProductsComponent implements OnInit {
 
 agregarProductoNuevo(): void {
     const nombre = this.nuevosProductosForm.get('nombre')?.value;
+    const descripcion = this.nuevosProductosForm.get('descripcion')?.value;
     const precio = this.nuevosProductosForm.get('precio')?.value;
     const descuento = this.nuevosProductosForm.get('descuento')?.value;
     const precioFinal = this.nuevosProductosForm.get('precioFinal')?.value;
@@ -126,6 +128,7 @@ agregarProductoNuevo(): void {
       if (nombre && this.fotoPerfil && !isNaN(precioFinal)) {
         const formData = new FormData();
         formData.append('nombre', nombre);
+         formData.append('descripcion', descripcion);
         formData.append('imagen', this.fotoPerfil);
         formData.append('precio', precio.toString());
         formData.append('descuento', descuento.toString());
