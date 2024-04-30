@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { ProductService } from 'src/app/services/producto.service'; 
 import { AlertController } from '@ionic/angular'; 
 import { Producto } from 'src/app/models/producto'; 
+import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-product',
@@ -12,11 +14,17 @@ import { Producto } from 'src/app/models/producto';
 export class ProductComponent implements OnInit {
   listProductos: any; // Declara la variable como un array de Productos
 
+  productos: any[]= []; 
+
+
   constructor(private router: Router, private productService: ProductService,
-    private alertCtrl: AlertController) {}
+    private alertCtrl: AlertController, private http: HttpClient) {}
+
+     apiUrl: string = environment.apiUrl;
 
   ngOnInit(): void {
     this.obtenerProductos();
+    this.getProductos();
   }
 
   obtenerProductos() {
@@ -25,6 +33,21 @@ export class ProductComponent implements OnInit {
       this.listProductos = data;
     });
   }
+
+
+  //Productos
+getProductos(){
+ this.http.get<any[]>(`${environment.apiUrl}/producto`).subscribe(
+      (response) => {
+        this.productos = response;
+        console.log('=>',response)
+      },
+      (error) => {
+        console.error('Error al obtener los productos:', error);
+      }
+    );
+}
+
 
   eliminarProducto(id: string) {
     this.productService.deleteProducto(id).subscribe(() => {

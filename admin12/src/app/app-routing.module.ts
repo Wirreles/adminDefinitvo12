@@ -16,6 +16,7 @@ import { SomoComponent } from './component/qSomo/quienesSomo.component';
 import { SomosComponent } from './component/qSomos/quienesSomos.component';
 import { NuevosProductsComponent } from './component/productosNuevos/productosNuevos.component';
 import { ProductNuevoComponent } from './component/productoNuevo/productoNuevo.component';
+import { ComentariosComponent } from './component/comentarios/comentarios.component';
 
 const routes: Routes = [
   {path: 'product', component: ProductComponent},
@@ -27,6 +28,9 @@ const routes: Routes = [
   // {path: 'comment', component: ComentarioComponent},
   // {path: 'comments', component: CommentsComponent },
   // {path: 'editar-comentario/:id', component:CommentsComponent },
+
+
+{path: 'comentario', component: ComentariosComponent},
   {path: 'lotery', component: SorteoComponent},
   {path: 'loteryes', component: SorteosComponent },
   {path: 'editar-sorteo/:id', component: SorteosComponent },

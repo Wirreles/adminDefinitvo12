@@ -14,8 +14,7 @@ import { ProductsComponent } from './component/products/products.component';
 import { NuevosProductsComponent } from "./component/productosNuevos/productosNuevos.component";
 import { CategoriasComponent } from "./component/categorias/categorias.component";
 import { CategoriaComponent } from "./component/categoria/categoria.component";
-// import { ComentarioComponent } from "./component/comment/comment.component";
-// import { CommentsComponent } from "./component/comments/comments.component";
+
 import { EventComponent } from "./component/event/event.component";
 import { EventsComponent } from "./component/events/events.component";
 import { SorteoComponent } from "./component/lotery/lotery.component";
@@ -23,6 +22,8 @@ import { SorteosComponent } from "./component/loteryes/loteryes.component";
 import { SomoComponent } from "./component/qSomo/quienesSomo.component";
 import { SomosComponent } from "./component/qSomos/quienesSomos.component";
 import { ProductNuevoComponent } from "./component/productoNuevo/productoNuevo.component";
+import { ComentariosComponent } from './component/comentarios/comentarios.component';
+
 
 @NgModule({
   declarations: [AppComponent,
@@ -35,13 +36,13 @@ import { ProductNuevoComponent } from "./component/productoNuevo/productoNuevo.c
   CategoriaComponent,
   EventComponent,
   EventsComponent,
-  // ComentarioComponent,
-  // CommentsComponent,
+  
   
   SorteoComponent,
   SorteosComponent,
   SomoComponent,
-  SomosComponent
+  SomosComponent,
+  ComentariosComponent
   ],
   imports: [BrowserModule, 
     IonicModule.forRoot(),

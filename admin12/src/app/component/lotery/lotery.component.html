@@ -42,9 +42,9 @@
         <tbody>
           <tr *ngFor="let sor of listSorteo; let i = index">
             <th scope="row">{{ i + 1 }}</th>
-            <ion-img [src]="'apiUrl/uploads' + sor.imagen" alt="{{ sor.imagen }}"></ion-img>
+            <img [src]="'apiUrl/uploads' + sor.imagen" alt="{{ sor.imagen }}">
             <td>{{ sor.titulo }}</td>
-            <td>{{ sor.fecha }}</td>
+            <td>{{ sor.fecha | date: 'dd/MM/yyyy' }}</td>
             <td>{{ sor.nombre }}</td>
             <td>{{ sor.descripcion }}</td>
             <td>

@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { NuevoProductoService } from 'src/app/services/productoNuevo.service'; 
 import { AlertController } from '@ionic/angular'; 
 import { Producto } from 'src/app/models/producto'; 
+import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-productoNuevo',
@@ -12,11 +14,16 @@ import { Producto } from 'src/app/models/producto';
 export class ProductNuevoComponent implements OnInit {
   listProductosNew: any; // Declara la variable como un array de Productos
 
+  productosNuevos: any[]=[];
+
+   apiUrl: string = environment.apiUrl;
+
   constructor(private router: Router, private nuevosProductoService: NuevoProductoService,
-    private alertCtrl: AlertController) {}
+    private alertCtrl: AlertController, private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.obtenerProductosNuevos();
+    // this.obtenerProductosNuevos();
+    this.getProductosNuevos();
   }
 
   obtenerProductosNuevos() {
@@ -25,6 +32,19 @@ export class ProductNuevoComponent implements OnInit {
       this.listProductosNew = data;
     });
   }
+
+    // ProductosNuevos
+getProductosNuevos(){
+this.http.get<any[]>(`${environment.apiUrl}/nuevoProducto`).subscribe(
+      (response) => {
+        this.productosNuevos = response;
+        console.log('=>',response)
+      },
+      (error) => {
+        console.error('Error al obtener los nuevos productos:', error);
+      }
+  );
+}
 
   eliminarProductoNuevo(id: string) {
     this.nuevosProductoService.deleteProductoNuevo(id).subscribe(() => {

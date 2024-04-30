@@ -34,4 +34,8 @@ export class HomePage {
   navigateToPage8() {
     this.router.navigate(['/login']); //
   }
+
+  navigateToPage11() {
+    this.router.navigate(['/comentario']); //
+  }
 }

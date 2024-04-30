@@ -43,7 +43,7 @@
           <th scope="row">{{ i + 1 }}</th>
           <td>{{ even.nombre }}</td>
           <td>{{ even.imagen }}</td>
-          <td>{{ even.fecha }}</td>
+          <td>{{ even.fecha | date: 'dd/MM/yyyy' }}</td>
           <td>{{ even.descripcion }}</td>
           <td>
             <!-- <button class="btn btn-warning"  [routerLink]="['/editar-events', even._id]">Editar</button> -->
