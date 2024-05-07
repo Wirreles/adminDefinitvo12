@@ -58,8 +58,6 @@ export class ProductService {
   }
 
 
-  
-
   updateProducto(id: string, producto: Producto): Observable<Producto> {
     return this.http.put<Producto>(`${this.apiUrl}/${id}`, producto);
   }
@@ -67,4 +65,7 @@ export class ProductService {
   deleteProducto(id: string): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/${id}`);
   }
+
+
+
 }

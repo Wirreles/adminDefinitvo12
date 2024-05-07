@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular'; 
 import { EventoService } from 'src/app/services/evento.service'; // Importa el servicio
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -12,7 +13,7 @@ export class EventComponent implements OnInit {
   listEvent: any[]=[];
 
   constructor(private router: Router, private _eventoService: EventoService,
-    private http: HttpClient
+    private http: HttpClient,  private alertCtrl: AlertController
   ) {}
 
   ngOnInit(): void{
@@ -40,7 +41,19 @@ export class EventComponent implements OnInit {
   eliminarEvento(id: any) {
     this._eventoService.eliminarEvento(id).subscribe(data => {
     this.obtenerEvento();
+    this.mostrarAlerta();
     })
+  }
+
+
+    async mostrarAlerta() {
+    const alert = await this.alertCtrl.create({
+      header: 'Eliminado correctamente',
+      message: 'El evento ha sido eliminado exitosamente.',
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
   
 

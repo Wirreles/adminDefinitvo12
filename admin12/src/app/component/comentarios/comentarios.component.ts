@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {environment} from '../../../environments/environment'
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular'; 
 import { ComentarioService } from 'src/app/services/comentario.service';
 
 
@@ -15,7 +16,7 @@ export class ComentariosComponent  implements OnInit {
    comentarios: any[]=[];
    apiUrl: string = environment.apiUrl;
 
-  constructor(private http: HttpClient, private router: Router, private comentarioService  : ComentarioService) { }
+  constructor(private http: HttpClient, private router: Router, private comentarioService  : ComentarioService ,  private alertCtrl: AlertController) { }
 
   ngOnInit() { this.getComentarios(); }
 
@@ -37,9 +38,19 @@ getComentarios(){
   eliminarComentario(id: string) {
     this.comentarioService.deleteComentario(id).subscribe(() => {
       this.getComentarios();
+      this.mostrarAlerta();
     });
   }
   
+    async mostrarAlerta() {
+    const alert = await this.alertCtrl.create({
+      header: 'Eliminado correctamente',
+      message: 'El comentario ha sido eliminado exitosamente.',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
 
    goBack() {
     window.history.back();

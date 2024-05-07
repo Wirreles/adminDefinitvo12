@@ -52,7 +52,20 @@ getProductos(){
   eliminarProducto(id: string) {
     this.productService.deleteProducto(id).subscribe(() => {
       this.obtenerProductos();
+      this.mostrarAlerta();
     });
+  }
+
+
+  
+  async mostrarAlerta() {
+    const alert = await this.alertCtrl.create({
+      header: 'Eliminado correctamente',
+      message: 'El producto ha sido eliminado exitosamente.',
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
   
   goBack() {

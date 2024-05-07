@@ -49,7 +49,19 @@ this.http.get<any[]>(`${environment.apiUrl}/nuevoProducto`).subscribe(
   eliminarProductoNuevo(id: string) {
     this.nuevosProductoService.deleteProductoNuevo(id).subscribe(() => {
       this.obtenerProductosNuevos();
+      this.mostrarAlerta();
     });
+  }
+
+  
+  async mostrarAlerta() {
+    const alert = await this.alertCtrl.create({
+      header: 'Eliminado correctamente',
+      message: 'El producto ha sido eliminado exitosamente.',
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
   
   goBack() {

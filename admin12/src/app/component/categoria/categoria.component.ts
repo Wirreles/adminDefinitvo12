@@ -23,12 +23,7 @@ export class CategoriaComponent implements OnInit {
     this.obtenerCategoria();
   }
 
-  // obtenerCategoria() {
-  //   this.categoriaService.getAllCategorias().subscribe(data => {
-  //     console.log(data);
-  //     this.listCategorias = data;
-  //   });
-  // }
+
   obtenerCategoria() {
     this.http.get<any[]>(`${environment.apiUrl}/categoria`).subscribe({
       next: (response) => {
@@ -45,7 +40,19 @@ export class CategoriaComponent implements OnInit {
   eliminarCategoria(id: string) {
     this.categoriaService.deleteCategoria(id).subscribe(() => {
       this.obtenerCategoria();
+      this.mostrarAlerta();
     });
+  }
+
+
+  async mostrarAlerta() {
+    const alert = await this.alertCtrl.create({
+      header: 'Eliminado correctamente',
+      message: 'La categoría ha sido eliminada exitosamente.',
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
   
   goBack() {

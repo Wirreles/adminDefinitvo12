@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-
+import { AlertController } from '@ionic/angular'; 
 import { CategoriaService } from 'src/app/services/categoria.service';
 import { Categoria } from 'src/app/models/categoria';
 
@@ -23,6 +23,7 @@ export class CategoriasComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private router: Router,
+              private alertCtrl: AlertController,
               private categoriaService: CategoriaService,
               private activatedRoute: ActivatedRoute) {
     this.categoriaForm = this.fb.group({
@@ -57,6 +58,7 @@ export class CategoriasComponent implements OnInit {
       this.categoriaService.createCategoriaWithImage(formData).subscribe({
         next: (response) => {
           console.log('Categoría creada correctamente:', response);
+          this.mostrarAlerta();
           this.router.navigate(['/categoria']);
         },
         error: (err) => {
@@ -65,6 +67,18 @@ export class CategoriasComponent implements OnInit {
         }
       });
     }
+  }
+
+
+  
+  async mostrarAlerta() {
+    const alert = await this.alertCtrl.create({
+      header: 'Agregada correctamente',
+      message: 'Categoria agregada exitosamente.',
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
 
  

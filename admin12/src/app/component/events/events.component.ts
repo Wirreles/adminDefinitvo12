@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AlertController } from '@ionic/angular'; 
 import { EventoService } from 'src/app/services/evento.service'
 import { event } from 'src/app/models/evento'
 @Component({
@@ -20,6 +21,7 @@ export class EventsComponent implements OnInit {
   id: string | null;
   constructor(private fb: FormBuilder,
               private router: Router,
+              private alertCtrl: AlertController,
               private _eventoService: EventoService,
               private aRouter: ActivatedRoute){
     this.eventForm = this.fb.group({
@@ -77,6 +79,7 @@ export class EventsComponent implements OnInit {
       this._eventoService.createEventoWithImage(formData).subscribe({
         next: (response) => {
           console.log('Evento creada correctamente:', response);
+          this.mostrarAlerta();
           this.router.navigate(['/event']);
         },
         error: (err) => {
@@ -85,6 +88,16 @@ export class EventsComponent implements OnInit {
         }
       });
     }
+  }
+
+   async mostrarAlerta() {
+    const alert = await this.alertCtrl.create({
+      header: 'Agregado correctamente',
+      message: 'El evento ha sido agregado exitosamente.',
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
   
   esEditar(){

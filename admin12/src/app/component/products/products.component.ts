@@ -6,6 +6,7 @@ import { Producto } from 'src/app/models/producto';
 import { CategoriaService } from 'src/app/services/categoria.service';
 import { Categoria } from 'src/app/models/categoria';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-products',
@@ -22,6 +23,7 @@ export class ProductsComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private router: Router,
+              private alertCtrl: AlertController,
               private productService: ProductService,
               private activatedRoute: ActivatedRoute, private categoriaService: CategoriaService  ) {
 
@@ -130,6 +132,7 @@ export class ProductsComponent implements OnInit {
       this.productService.createProductoWithImage(formData).subscribe({
         next: (response) => {
           console.log('Producto creada correctamente:', response);
+          this.mostrarAlerta();
           this.router.navigate(['/product']);
         },
         error: (err) => {
@@ -141,6 +144,18 @@ export class ProductsComponent implements OnInit {
     }
 
   }
+
+ async mostrarAlerta() {
+    const alert = await this.alertCtrl.create({
+      header: 'Agregado correctamente',
+      message: 'El producto ha sido agregado exitosamente.',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+  
+  
 
   
 

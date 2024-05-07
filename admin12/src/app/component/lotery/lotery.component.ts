@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular'; 
 import { SorteoService } from 'src/app/services/sorteo.service'; // Importa el servicio
 import { sorteo } from 'src/app/models/sorteo';
 @Component({
@@ -11,7 +12,7 @@ export class SorteoComponent implements OnInit {
 
   listSorteo: any;
 
-  constructor(private router: Router, private _sorteoService: SorteoService) {}
+  constructor(private router: Router, private _sorteoService: SorteoService, private alertCtrl: AlertController) {}
 
   ngOnInit() {
     this.obtenerSorteo();
@@ -28,7 +29,18 @@ export class SorteoComponent implements OnInit {
   eliminarSorteo(id: any) {
     this._sorteoService.eliminarSorteo(id).subscribe(data => {
     this.obtenerSorteo();
+    this.mostrarAlerta();
     })
+  }
+
+    async mostrarAlerta() {
+    const alert = await this.alertCtrl.create({
+      header: 'Eliminado correctamente',
+      message: 'El sorteo ha sido eliminada exitosamente.',
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
   
 

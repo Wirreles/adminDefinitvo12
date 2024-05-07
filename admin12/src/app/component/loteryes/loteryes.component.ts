@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AlertController } from '@ionic/angular'; 
 import { sorteo } from 'src/app/models/sorteo';
 import { SorteoService } from 'src/app/services/sorteo.service';
 
@@ -18,7 +19,8 @@ export class SorteosComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private _sorteoService: SorteoService,
-    private aRouter: ActivatedRoute
+    private aRouter: ActivatedRoute,
+    private alertCtrl: AlertController
   ) {
     this.loteryForm = this.fb.group({
       imagen: ['', Validators.required],
@@ -56,6 +58,7 @@ export class SorteosComponent implements OnInit {
       this._sorteoService.createSorteoWithImage(formData).subscribe({
         next: (response) => {
           console.log('Sorteo creada correctamente:', response);
+          this.mostrarAlerta();
           this.router.navigate(['/lotery']);
         },
         error: (err) => {
@@ -65,6 +68,17 @@ export class SorteosComponent implements OnInit {
       });
     }
   }
+
+    async mostrarAlerta() {
+    const alert = await this.alertCtrl.create({
+      header: 'Agregado correctamente',
+      message: 'El sorteo ha sido agregado exitosamente.',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+  
 
   esEditar() {
     if (this.id !== null) {
