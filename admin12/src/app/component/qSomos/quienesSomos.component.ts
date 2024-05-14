@@ -46,6 +46,7 @@ export class SomosComponent implements OnInit {
       formData.append('imagen', this.fotoPerfil);
 
         console.log('FormData:', formData);
+        console.log(formData)
 
       this.quienesSomosService.createSomosWithImage(formData).subscribe({
         next: (response) => {
