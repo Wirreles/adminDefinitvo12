@@ -14,6 +14,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class CategoriaComponent implements OnInit {
   categorias: any[]=[];
+       apiUrl: string = environment.apiUrl;
+
+
   // apiUrl: string=environment.apiUrl;
   // listCategorias: any[]= []; // Declara la variable como un array de Productos
   constructor(private router: Router, private categoriaService: CategoriaService,

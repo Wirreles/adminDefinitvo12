@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { SomosService } from 'src/app/services/quienesSomos.service'; 
 import { AlertController } from '@ionic/angular'; 
 import { somos } from 'src/app/models/quienesSomos'; 
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-quienesSomo',
@@ -11,6 +12,11 @@ import { somos } from 'src/app/models/quienesSomos';
 })
 export class SomoComponent implements OnInit {
   listSomos: any; 
+
+   somos: any[]= []; 
+
+       apiUrl: string = environment.apiUrl;
+
 
   constructor(private router: Router, private somosService: SomosService,
     private alertCtrl: AlertController) {}
@@ -28,10 +34,24 @@ export class SomoComponent implements OnInit {
 
   eliminarSomos(id: string) {
     this.somosService.eliminarSomos(id).subscribe(() => {
+      this.mostrarAlerta()
       this.obtenerSomos();
     });
   }
   
+
+  async mostrarAlerta() {
+    const alert = await this.alertCtrl.create({
+      header: 'Eliminado correctamente',
+      message: 'Eliminado exitosamente.',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+  
+
+
   goBack() {
     window.history.back();
   }

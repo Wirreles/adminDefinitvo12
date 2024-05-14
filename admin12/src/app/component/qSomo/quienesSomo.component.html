@@ -40,8 +40,18 @@
         <tbody>
           <tr *ngFor="let som of listSomos; let i = index">
             <th scope="row">{{ i + 1 }}</th>
-            <td>{{ som.imagen }}</td>
-            <!-- <ion-img [src]="'apiUrl/uploads' + som.imagen" alt="{{ som.imagen }}"></ion-img> -->
+            <!-- <td>{{ som.imagen }}</td> -->
+
+
+             <td>
+         <img
+              [src]="apiUrl + '/uploads/' + som.imagen"
+              alt="Producto"
+              style="max-width: 100px; max-height: 100px"
+            />
+          </td>
+
+           
             <td>{{ som.descripcion }}</td>
             <td>
               <!-- <button class="btn btn-warning"  [routerLink]="['/editar-somos', som._id]">Editar</button> -->

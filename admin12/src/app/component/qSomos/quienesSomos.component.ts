@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SomosService } from 'src/app/services/quienesSomos.service';
 import { somos } from 'src/app/models/quienesSomos';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-quienesSomo',
@@ -17,6 +18,7 @@ export class SomosComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private router: Router,
               private quienesSomosService: SomosService,
+               private alertCtrl: AlertController,
               private activatedRoute: ActivatedRoute) {
     this.somosForm = this.fb.group({
       imagen: ['', Validators.required],
@@ -48,6 +50,7 @@ export class SomosComponent implements OnInit {
       this.quienesSomosService.createSomosWithImage(formData).subscribe({
         next: (response) => {
           console.log('Quienes Somos creada correctamente:', response);
+          this.mostrarAlerta();
           this.router.navigate(['/qSomo']);
         },
         error: (err) => {
@@ -57,6 +60,17 @@ export class SomosComponent implements OnInit {
       });
     }
   }
+
+   async mostrarAlerta() {
+    const alert = await this.alertCtrl.create({
+      header: 'Agregado correctamente',
+      message: 'Agregado exitosamente.',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+  
 
   esEditar() {
     if (this.id !== null) {

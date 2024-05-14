@@ -42,8 +42,16 @@
         <tr *ngFor="let categoria of categorias; let i = index">
           <th scope="row">{{ i + 1 }}</th>
           <td>{{ categoria.nombre }}</td>
-          <td>{{ categoria.imagen }}</td>
-          <!-- <ion-img [src]="'environment.apiUrl +  /uploads/' + categoria.imagen"  >></ion-img> -->
+          <!-- <td>{{ categoria.imagen }}</td> -->
+    
+     <td>
+            <img
+              [src]="apiUrl + '/uploads/' + categoria.imagen"
+              alt="Producto"
+              style="max-width: 100px; max-height: 100px"
+            />
+          </td>
+
           
           <td>
             <!-- <button class="btn btn-warning"   [routerLink]="['/editar-categoria', categoria._id]">Editar</button> -->

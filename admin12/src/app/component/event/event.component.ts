@@ -12,6 +12,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class EventComponent implements OnInit {
   listEvent: any[]=[];
 
+  eventos: any[]= []; 
+
+       apiUrl: string = environment.apiUrl;
+
+
   constructor(private router: Router, private _eventoService: EventoService,
     private http: HttpClient,  private alertCtrl: AlertController
   ) {}

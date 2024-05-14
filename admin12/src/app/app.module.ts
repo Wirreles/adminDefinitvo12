@@ -23,6 +23,7 @@ import { SomoComponent } from "./component/qSomo/quienesSomo.component";
 import { SomosComponent } from "./component/qSomos/quienesSomos.component";
 import { ProductNuevoComponent } from "./component/productoNuevo/productoNuevo.component";
 import { ComentariosComponent } from './component/comentarios/comentarios.component';
+import { LoginComponent } from './component/login/login.component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { ComentariosComponent } from './component/comentarios/comentarios.compon
   SorteosComponent,
   SomoComponent,
   SomosComponent,
-  ComentariosComponent
+  ComentariosComponent,
+  LoginComponent
   ],
   imports: [BrowserModule, 
     IonicModule.forRoot(),

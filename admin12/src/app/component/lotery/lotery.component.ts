@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular'; 
 import { SorteoService } from 'src/app/services/sorteo.service'; // Importa el servicio
 import { sorteo } from 'src/app/models/sorteo';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-lotery',
   templateUrl: './lotery.component.html',
@@ -11,6 +12,11 @@ import { sorteo } from 'src/app/models/sorteo';
 export class SorteoComponent implements OnInit {
 
   listSorteo: any;
+
+
+sorteos: any[]= []; 
+
+       apiUrl: string = environment.apiUrl;
 
   constructor(private router: Router, private _sorteoService: SorteoService, private alertCtrl: AlertController) {}
 

@@ -42,7 +42,17 @@
         <tbody>
           <tr *ngFor="let sor of listSorteo; let i = index">
             <th scope="row">{{ i + 1 }}</th>
-            <img [src]="'apiUrl/uploads' + sor.imagen" alt="{{ sor.imagen }}">
+
+ <td>
+            <img
+              [src]="apiUrl + '/uploads/' + sor.imagen"
+              alt="Producto"
+              style="max-width: 100px; max-height: 100px"
+            />
+          </td>
+
+
+            <!-- <img [src]="'apiUrl/uploads' + sor.imagen" alt="{{ sor.imagen }}"> -->
             <td>{{ sor.titulo }}</td>
             <td>{{ sor.fecha | date: 'dd/MM/yyyy' }}</td>
             <td>{{ sor.nombre }}</td>

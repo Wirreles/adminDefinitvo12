@@ -17,6 +17,7 @@ import { SomosComponent } from './component/qSomos/quienesSomos.component';
 import { NuevosProductsComponent } from './component/productosNuevos/productosNuevos.component';
 import { ProductNuevoComponent } from './component/productoNuevo/productoNuevo.component';
 import { ComentariosComponent } from './component/comentarios/comentarios.component';
+import { LoginComponent } from './component/login/login.component';
 
 const routes: Routes = [
   {path: 'product', component: ProductComponent},
@@ -44,7 +45,8 @@ const routes: Routes = [
   {path: 'productosNuevo', component: NuevosProductsComponent},
   {path: 'editar-productoNuevo/:id', component: NuevosProductsComponent},
   {path: 'home', component: HomePage},
-  {path: '', redirectTo: 'home', pathMatch: 'full'}
+  {path:'login', component: LoginComponent},
+  {path: '', redirectTo: 'login', pathMatch: 'full'}
 ];
 
 @NgModule({
