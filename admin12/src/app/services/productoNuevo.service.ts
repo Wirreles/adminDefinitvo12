@@ -47,6 +47,8 @@ export class NuevoProductoService {
   //   return this.http.post<NuevoProducto>(this.apiUrl, formDataClone);
   // }
 
+  // ok funciona
+
    getProductoNuevoById(id: string): Observable<NuevoProducto> {
     return this.http.get<NuevoProducto>(`${this.apiUrl}/${id}`);
   }
