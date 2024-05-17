@@ -6,4 +6,5 @@ export interface Producto {
   precio: number;
   descuento?: number;
   precioFinal: number;
+  categorias: string[]; 
 }

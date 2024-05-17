@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ProductService } from 'src/app/services/producto.service';
+import { ProductService } from 'src/app/services/producto.service';1
 import { Producto } from 'src/app/models/producto';
 import { CategoriaService } from 'src/app/services/categoria.service';
 import { Categoria } from 'src/app/models/categoria';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { AlertController } from '@ionic/angular';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-products',
@@ -19,7 +20,10 @@ export class ProductsComponent implements OnInit {
   id: string | null;
   fotoPerfil: File | null = null; 
    categorias: Categoria[] = [];
-  
+
+     apiUrl: string = environment.apiUrl;
+
+// original  
 
   constructor(private fb: FormBuilder,
               private router: Router,
@@ -41,7 +45,10 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.esEditar();
+
+this.editarProducto();
+  
+ 
     this.obtenerCategorias();
 
 
@@ -67,10 +74,9 @@ export class ProductsComponent implements OnInit {
   }
 
 
+imagenUrl: string | null = null;
 
 
-
-  
 
   goBack() {
     window.history.back();
@@ -79,8 +85,17 @@ export class ProductsComponent implements OnInit {
   onFileSelected(event: any): void {
     this.fotoPerfil = event.target.files[0] as File;
   }
+
+
+
   
   agregarProducto(): void {
+
+
+
+
+
+
     const nombre = this.productoForm.get('nombre')?.value;
     const descripcion = this.productoForm.get('descripcion')?.value;
     const precio = this.productoForm.get('precio')?.value;
@@ -128,6 +143,8 @@ export class ProductsComponent implements OnInit {
         });
       }
 
+
+
   
       this.productService.createProductoWithImage(formData).subscribe({
         next: (response) => {
@@ -165,18 +182,197 @@ export class ProductsComponent implements OnInit {
     });
   }
 
-  esEditar() {
-    if (this.id !== null) {
-      this.titulo = 'Editar Producto';
-      this.productService.getProductoById(this.id).subscribe(data => {
-        this.productoForm.setValue({
-          nombre: data.nombre,
-          imagen: data.imagen,
-          precio: data.precio,
-          descuento: data.descuento,
-          precioFinal: data.precioFinal,
+
+// editarProducto(): void {
+//   const id = this.id;
+//   if (id) {
+//     this.productService.getProductoById(id).subscribe({
+//       next: (producto) => {
+//         // Una vez que se reciban los datos del producto, establecer los valores del formulario
+//         this.productoForm.patchValue({
+//           nombre: producto.nombre,
+//           descripcion: producto.descripcion,
+//           precio: producto.precio,
+//           descuento: producto.descuento,
+//           precioFinal: producto.precioFinal,
+//           categorias: producto.categorias // Asegúrate de que las categorías estén correctamente formateadas
+//         });
+    
+
+//       this.titulo = 'Editar Producto';
+
+
+
+    
+
+//             if (producto.imagen && !this.fotoPerfil) {
+         
+//           this.imagenUrl = `${this.apiUrl}/uploads/${producto.imagen}`;
+//         }
+
+
+
+
+//         // Resto del código para actualizar el producto después de editar
+//         const nombre = this.productoForm.get('nombre')?.value;
+//         const descripcion = this.productoForm.get('descripcion')?.value;
+//         const precio = this.productoForm.get('precio')?.value;
+//         const descuento = this.productoForm.get('descuento')?.value;
+//         const precioFinal = this.productoForm.get('precioFinal')?.value;
+
+//         if (!isNaN(precio)) {
+//           let precioFinal: number;
+
+//           if (!isNaN(descuento)) {
+//             // Si se ingresó un descuento, calcular el precio final
+//             precioFinal = precio - descuento;
+//           } else {
+//             // Si no se ingresó un descuento, el precio final es igual al precio
+//             precioFinal = precio;
+//           }
+
+//           this.productoForm.patchValue({ precioFinal: precioFinal });
+
+//           console.log('Datos del formulario:', this.productoForm.value);
+
+//           if (nombre && !isNaN(precioFinal)) {
+//             const formData = new FormData();
+//             formData.append('nombre', nombre);
+//             formData.append('descripcion', descripcion);
+//             if (this.fotoPerfil) {
+//               formData.append('imagen', this.fotoPerfil);
+//             }
+//             formData.append('precio', precio.toString());
+//             formData.append('descuento', descuento.toString());
+//             formData.append('precioFinal', precioFinal.toString());
+
+//             // Obtener las categorías seleccionadas del formulario
+//             const categoriasSeleccionadas = this.productoForm.get('categorias')?.value;
+
+//             if (categoriasSeleccionadas) {
+//               categoriasSeleccionadas.forEach((categoria: string) => {
+//                 formData.append('categorias[]', categoria); // Agregar categorías al FormData
+//               });
+//             }
+
+//             // Llamar al servicio para actualizar el producto
+//             this.productService.updateProductoWithImage(id, formData).subscribe({
+//               next: (response) => {
+//                 console.log('Producto actualizado correctamente:', response);
+                
+//               },
+//               error: (err) => {
+//                 console.error('Error al actualizar el producto:', err);
+//                 // Manejar el error según sea necesario
+//               }
+//             });
+//           }
+//         }
+//       },
+//       error: (err) => {
+//         console.error('Error al obtener los datos del producto:', err);
+//         // Manejar el error según sea necesario
+//       }
+//     });
+//   }
+// }
+
+
+editarProducto(): void {
+  const id = this.id;
+  if (id) {
+    this.productService.getProductoById(id).subscribe({
+      next: (producto) => {
+        // Una vez que se reciban los datos del producto, establecer los valores del formulario
+        this.productoForm.patchValue({
+          nombre: producto.nombre,
+          descripcion: producto.descripcion,
+          precio: producto.precio,
+          descuento: producto.descuento,
+          precioFinal: producto.precioFinal,
+          categorias: producto.categorias // Asegúrate de que las categorías estén correctamente formateadas
         });
-      });
-    }
+
+        this.titulo = 'Editar Producto'; // Actualizar el título
+
+        if (producto.imagen && !this.fotoPerfil) {
+          // Si hay una imagen existente pero no se ha seleccionado una nueva,
+          // simplemente utilizar la imagen existente
+          this.imagenUrl = `${this.apiUrl}/uploads/${producto.imagen}`;
+        }
+
+        // Verificar si hay una imagen seleccionada y si no, actualizar la imagen en el formulario
+        if (!this.fotoPerfil && this.productoForm.get('imagen')?.value === '') {
+          this.productoForm.patchValue({ imagen: producto.imagen });
+        }
+
+        // Resto del código para actualizar el producto después de editar
+        const nombre = this.productoForm.get('nombre')?.value;
+        const descripcion = this.productoForm.get('descripcion')?.value;
+        const precio = this.productoForm.get('precio')?.value;
+        const descuento = this.productoForm.get('descuento')?.value;
+        const precioFinal = this.productoForm.get('precioFinal')?.value;
+
+        if (!isNaN(precio)) {
+          let precioFinalCalculated: number;
+
+          if (!isNaN(descuento)) {
+            // Si se ingresó un descuento, calcular el precio final
+            precioFinalCalculated = precio - descuento;
+          } else {
+            // Si no se ingresó un descuento, el precio final es igual al precio
+            precioFinalCalculated = precio;
+          }
+
+          if (precioFinalCalculated !== precioFinal) {
+            // Actualizar el precio final en el formulario si es diferente
+            this.productoForm.patchValue({ precioFinal: precioFinalCalculated });
+          }
+
+          // Verificar que los campos requeridos no estén vacíos antes de actualizar
+          if (nombre && precio && precioFinalCalculated >= 0) {
+            const formData = new FormData();
+            formData.append('nombre', nombre);
+            formData.append('descripcion', descripcion);
+            if (this.fotoPerfil) {
+              formData.append('imagen', this.fotoPerfil);
+            }
+            formData.append('precio', precio.toString());
+            formData.append('descuento', descuento.toString());
+            formData.append('precioFinal', precioFinalCalculated.toString());
+
+            // Obtener las categorías seleccionadas del formulario
+            const categoriasSeleccionadas = this.productoForm.get('categorias')?.value;
+
+            if (categoriasSeleccionadas) {
+              categoriasSeleccionadas.forEach((categoria: string) => {
+                formData.append('categorias[]', categoria); // Agregar categorías al FormData
+              });
+            }
+
+            // Llamar al servicio para actualizar el producto
+            this.productService.editarProducto(id, formData).subscribe({
+              next: (response) => {
+                console.log('Producto actualizado correctamente:', response);
+                // this.router.navigate(['/product']);
+              },
+              error: (err) => {
+                console.error('Error al actualizar el producto:', err);
+                // Manejar el error según sea necesario
+              }
+            });
+          }
+        }
+      },
+      error: (err) => {
+        console.error('Error al obtener los datos del producto:', err);
+        // Manejar el error según sea necesario
+      }
+    });
   }
+}
+
+
+
+
 }

@@ -49,6 +49,8 @@ getProductos(){
 }
 
 
+
+
   eliminarProducto(id: string) {
     this.productService.deleteProducto(id).subscribe(() => {
       this.obtenerProductos();
@@ -97,18 +99,7 @@ getProductos(){
     this.router.navigate(['/products']); //
   }
   
-// async verDetalles2(id: string) {
-//   const productoSeleccionado = this.listProductos.find(prod => prod._id === id);
 
-//   const alert = await this.alertCtrl.create({
-//     header: productoSeleccionado.nombre,
-//     message: `
-//       <ion-img src="${productoSeleccionado.imagen}" alt="${productoSeleccionado.nombre}"></ion-img>
-//       <p>Precio: ${productoSeleccionado.precio}</p>
-//     `,
-//     buttons: ['OK']
-//   });
 
-//   await alert.present();
-// }
+
 }

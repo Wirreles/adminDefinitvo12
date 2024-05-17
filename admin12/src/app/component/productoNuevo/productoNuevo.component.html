@@ -84,12 +84,14 @@
           <td>{{ producto.precioFinal }}</td>
           <td>
             <!-- <button class="btn btn-warning"  [routerLink]="['/editar-productoNuevo', prodN._id]">Editar</button> -->
+            <button class="btn btn-warning" [routerLink]="['/productoNuevo/editar', producto._id]">Editar</button>
             <button
               class="btn btn-danger"
               (click)="eliminarProductoNuevo(producto._id)"
             >
               Eliminar
             </button>
+
           </td>
         </tr>
       </tbody>

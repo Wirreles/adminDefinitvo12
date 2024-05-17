@@ -8,4 +8,5 @@ export interface NuevoProducto {
   precio: number;
   descuento?: number;
   precioFinal: number;
+  categorias: string[]; 
 }

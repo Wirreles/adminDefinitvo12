@@ -2,12 +2,13 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoggingInterceptor } from './loggingInterceptor';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { HomePage } from "./component/home/home.page";
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from "@angular/common/http";
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 
 import { ProductComponent } from './component/product/product.component';
 import { ProductsComponent } from './component/products/products.component';
@@ -24,6 +25,8 @@ import { SomosComponent } from "./component/qSomos/quienesSomos.component";
 import { ProductNuevoComponent } from "./component/productoNuevo/productoNuevo.component";
 import { ComentariosComponent } from './component/comentarios/comentarios.component';
 import { LoginComponent } from './component/login/login.component';
+import { EditarProductoComponent } from './component/products/editar.component';
+import { EditarNuevoComponent } from './component/productosNuevos/productoEditar.component';
 
 
 @NgModule({
@@ -37,8 +40,8 @@ import { LoginComponent } from './component/login/login.component';
   CategoriaComponent,
   EventComponent,
   EventsComponent,
-  
-  
+  EditarProductoComponent,
+  EditarNuevoComponent,
   SorteoComponent,
   SorteosComponent,
   SomoComponent,
@@ -53,7 +56,7 @@ import { LoginComponent } from './component/login/login.component';
     FormsModule,
     ReactiveFormsModule],
     
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, {provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptor, multi: true}],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -19,6 +19,10 @@ import { ProductNuevoComponent } from './component/productoNuevo/productoNuevo.c
 import { ComentariosComponent } from './component/comentarios/comentarios.component';
 import { LoginComponent } from './component/login/login.component';
 
+
+import { EditarProductoComponent } from './component/products/editar.component';
+import { EditarNuevoComponent } from './component/productosNuevos/productoEditar.component';
+
 const routes: Routes = [
   {path: 'product', component: ProductComponent},
   {path: 'products', component: ProductsComponent },
@@ -30,6 +34,9 @@ const routes: Routes = [
   // {path: 'comments', component: CommentsComponent },
   // {path: 'editar-comentario/:id', component:CommentsComponent },
 
+  // {path: 'editar/:id', component:EditarProductoComponent},
+{ path: 'product/editar/:id', component: EditarProductoComponent },
+//  { path: 'nuevoProducto/editar/:id', component: EditarNuevoComponent },
 
 {path: 'comentario', component: ComentariosComponent},
   {path: 'lotery', component: SorteoComponent},
@@ -43,7 +50,7 @@ const routes: Routes = [
   {path: 'editar-somos/:id', component: SomosComponent },
   {path: 'productoNuevo', component: ProductNuevoComponent},
   {path: 'productosNuevo', component: NuevosProductsComponent},
-  {path: 'editar-productoNuevo/:id', component: NuevosProductsComponent},
+  { path: 'productoNuevo/editar/:id', component: EditarNuevoComponent },
   {path: 'home', component: HomePage},
   {path:'login', component: LoginComponent},
   {path: '', redirectTo: 'login', pathMatch: 'full'}

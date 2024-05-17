@@ -2,8 +2,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
 import { NuevoProducto } from '../models/pNuevo';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -47,6 +47,10 @@ export class NuevoProductoService {
   //   return this.http.post<NuevoProducto>(this.apiUrl, formDataClone);
   // }
 
+   getProductoNuevoById(id: string): Observable<NuevoProducto> {
+    return this.http.get<NuevoProducto>(`${this.apiUrl}/${id}`);
+  }
+
  createNewProductoWithImage(formData: FormData): Observable<NuevoProducto> {
     const nombre = formData.get('nombre') as string; 
     const descripcion = formData.get('descripcion') as string; 
@@ -79,18 +83,21 @@ export class NuevoProductoService {
     return this.http.post<NuevoProducto>(this.apiUrl, formDataClone);
   }
 
-  updateProductoNuevo(id: string, nuevoProducto: NuevoProducto): Observable<NuevoProducto> {
-    return this.http.put<NuevoProducto>(`${this.apiUrl}/${id}`, nuevoProducto);
-  }
+  // updateProductoNuevo(id: string, nuevoProducto: NuevoProducto): Observable<NuevoProducto> {
+  //   return this.http.put<NuevoProducto>(`${this.apiUrl}/${id}`, nuevoProducto);
+  // }
 
   deleteProductoNuevo(id: string): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/${id}`);
   }
 
-  getProductoNuevoById(id: string): Observable<NuevoProducto> {
-    return this.http.get<NuevoProducto>(`${this.apiUrl}/${id}`);
-  }
+ 
 
+  
+
+  editarProductoNuevo(id: string, data: any): Observable<NuevoProducto> {
+    return this.http.put<NuevoProducto>(`${this.apiUrl}/${id}`, data);
+  }
 
   getAllProductoNuevo(): Observable<NuevoProducto[]> {
     return this.http.get<NuevoProducto[]>(this.apiUrl);
