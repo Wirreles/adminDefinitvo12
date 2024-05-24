@@ -12,6 +12,9 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./product.component.scss'],
 })
 export class ProductComponent implements OnInit {
+handleError($event: ErrorEvent) {
+throw new Error('Method not implemented.');
+}
   listProductos: any; // Declara la variable como un array de Productos
 
   productos: any[]= []; 
@@ -21,6 +24,8 @@ export class ProductComponent implements OnInit {
     private alertCtrl: AlertController, private http: HttpClient) {}
 
      apiUrl: string = environment.apiUrl;
+    
+
 
   ngOnInit(): void {
     this.obtenerProductos();

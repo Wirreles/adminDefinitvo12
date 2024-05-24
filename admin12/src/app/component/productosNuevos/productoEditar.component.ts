@@ -113,7 +113,7 @@ guardarCambios(): void {
             console.log('Respuesta del backend:', response);
             console.log('Producto actualizado correctamente:', response);
             // this.mostrarAlerta();
-            this.router.navigate(['/product']);
+            this.router.navigate(['/productoNuevo']);
           },
           error: (err) => {
             console.error('Error al actualizar el producto:', err);

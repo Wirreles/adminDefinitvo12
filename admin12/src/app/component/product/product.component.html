@@ -74,13 +74,22 @@
           <td>{{ producto.precio }}</td>
           <!-- <td>{{ prod.imagen }}</td> -->
 
-          <td>
+          <!-- <td>
             <img
               [src]="apiUrl + '/uploads/' + producto.imagen"
               alt="Producto"
               style="max-width: 100px; max-height: 100px"
             />
-          </td>
+          </td> -->
+
+
+<td>
+  <img
+    [src]="producto.imagen"
+    alt="Producto"
+    style="max-width: 100px; max-height: 100px"
+  />
+</td>
 
           <td>{{ producto.descuento }}</td>
           <td>{{ producto.precioFinal }}</td>
